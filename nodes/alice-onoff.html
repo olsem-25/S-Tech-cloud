@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ST-On/Off', {
+        category: 'S_Tech_cloud',
+        color: '#FFD09D',
+        defaults: {
+            name: {value:""},
+            device: {value:"", type:"device"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "alice.png",
+        label: function(){
+            return this.name + ":On/Off";
+        },
+        oneditsave: function(){
+            devname = $('#node-input-device option:selected').text();
+            $('#node-input-name').val(devname);
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="ST-On/Off">
+    <input type="hidden" id="node-input-name">
+    <div class="form-row">
+        <label for="node-input-device" class="l-width"> Device</span></label>
+        <input type="text" id="node-input-device">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ST-On/Off">
+    <p>This node has a capabilities on/off. Bool values are used for input and output.</p>
+</script>

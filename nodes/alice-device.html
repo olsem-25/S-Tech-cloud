@@ -1,0 +1,109 @@
+<script type="text/javascript">
+    RED.nodes.registerType('device', {
+        category: 'config',
+        defaults: {
+	    name: {value:null, required: true},
+	    description: {value:null},
+            room: {value:"Комната"},
+            dtype: {value:"devices.types.light", required: true},
+            modeltype: {value:"Lamp", required: true},
+            cloud: {value:"", type:"S-Tech-cloud"}
+        },
+        label: function() {
+            return this.name||"device";
+        },
+	    oneditprepare: ()=>{
+            $("#node-config-input-dtype").typedInput({
+                types: [
+                    {
+                        options: [
+                            { value: "devices.types.light", label: "Light" }, 
+                            { value: "devices.types.socket", label: "Socket" },
+                            { value: "devices.types.switch", label: "Switch" },
+                            { value: "devices.types.thermostat", label: "Thermostat"  },
+                            { value: "devices.types.thermostat.ac", label: "Air conditioning"  },
+                            { value: "devices.types.media_device", label: "Multimedia"  },
+                            { value: "devices.types.media_device.tv", label: "TV"  },
+                            { value: "devices.types.media_device.tv_box", label: "TV Box" },
+                            { value: "devices.types.media_device.receiver", label: "AV Receiver" },
+                            { value: "devices.types.camera", label: "Camera" },
+                            { value: "devices.types.cooking", label: "Kitchen appliances" },
+                            { value: "devices.types.cooking.coffee_maker", label: "Coffee machine" },
+                            { value: "devices.types.cooking.kettle", label: "Smart kettle" },
+                            { value: "devices.types.cooking.multicooker", label: "Multicooker" },
+                            { value: "devices.types.openable", label: "Door, gate, window, shutters" },
+                            { value: "devices.types.openable.curtain", label: "Curtains, blinds" },
+                            { value: "devices.types.humidifier", label: "Humidifier" },
+                            { value: "devices.types.purifier", label: "Air purifier" },
+                            { value: "devices.types.vacuum_cleaner", label: "Vacuum cleaner robot" },
+                            { value: "devices.types.washing_machine", label: "Washing machine" },
+                            { value: "devices.types.dishwasher", label: "Dishwasher" },
+                            { value: "devices.types.iron", label: "Iron, steam generator" },
+                            { value: "devices.types.sensor", label: "Sensor" },
+                            { value: "devices.types.sensor.motion", label: "Sensor motion" },
+                            { value: "devices.types.sensor.vibration", label: "Sensor vibration" },
+                            { value: "devices.types.sensor.illumination", label: "Sensor illumination" },
+                            { value: "devices.types.sensor.open", label: "Sensor open" },
+                            { value: "devices.types.sensor.climate", label: "Sensor climate" },
+                            { value: "devices.types.sensor.water_leak", label: "Sensor water_leak" },
+                            { value: "devices.types.sensor.button", label: "Sensor button" },
+                            { value: "devices.types.sensor.gas", label: "Sensor gas" },
+                            { value: "devices.types.sensor.smoke", label: "Sensor smoke" },
+                            { value: "devices.types.smart_meter", label: "Counter" },
+                            { value: "devices.types.smart_meter.cold_water", label: "Cold Water counter" },
+                            { value: "devices.types.smart_meter.hot_water", label: "Hot Water counter" },
+                            { value: "devices.types.smart_meter.electricity", label: "Electricity counter" },
+                            { value: "devices.types.smart_meter.gas", label: "Gas counter" },
+                            { value: "devices.types.smart_meter.heat", label: "Heat Water counter" },
+                            { value: "devices.types.pet_drinking_fountain", label: "Pet drinking fountain" },
+                            { value: "devices.types.pet_feeder", label: "Pet feeder" },
+                            { value: "devices.types.other", label: "Other" },
+                        ]
+                    }
+                ]
+            });
+            $("#node-config-input-modeltype").typedInput({
+                types: [
+                    {
+                        options: [
+                            { value: "Lamp", label: "Лампа" },
+                            { value: "LED_Strip", label: "LED лента" },
+                            { value: "LED_RGB_Strip", label: "RGB Лента" },
+                            { value: "Switch", label: "Выключатель" },
+                            { value: "Thermostat", label: "Термостат" },
+                            { value: "Hygrostat", label: "Гигростат" }
+                        ]
+                    }
+                ]
+            });
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="device">
+    <div class="form-row">
+        <label for="node-config-input-cloud" class="l-width"> Cloud</span></label>
+        <input type="text" id="node-config-input-cloud">
+    </div>
+     <div class="form-row">
+        <label for="node-config-input-name">Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-description">Description</label>
+        <input type="text" id="node-config-input-description" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-room">Room</label>
+        <input type="text" id="node-config-input-room" placeholder="Room">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-dtype">Type</label>
+        <input type="text" id="node-config-input-dtype">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-modeltype">Model Type</label>
+        <input type="text" id="node-config-input-modeltype">
+    </div>
+</script>
+

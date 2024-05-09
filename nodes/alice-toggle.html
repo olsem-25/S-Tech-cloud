@@ -1,0 +1,51 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ST-Toggle',{
+        category: 'S_Tech_cloud',
+        defaults:{
+            device: {value:"", type:"device"},
+            name: {value:""},
+            instance: {value:"backlight"},
+            response: {value:true}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "alice.png",
+        color: "#FFD09D",
+        label: function(){
+            return this.name + ":"+this.instance;
+        },
+        oneditprepare: function(){
+            if (this.response === undefined){
+                $( "#node-input-response").prop('checked', true);
+            }
+        },
+        oneditsave: function(){
+            deivcename = $('#node-input-device option:selected').text();
+            $('#node-input-name').val(deivcename);
+        }
+    })
+</script>
+
+<script type="text/x-red" data-template-name="ST-Toggle">
+    <input type="hidden" id="node-input-name">
+    <div class="form-row">
+        <label for="node-input-device">Device</label>
+        <input id="node-input-device">
+    </div>
+    <div class="form-row">
+        <label for="node-input-instance">Instance</label>
+        <select id="node-input-instance" style="width: 70%;">
+            <option value="backlight">Backlight</option>
+            <option value="controls_locked">Locking</option>
+            <option value="ionization" >Ionization</option>
+            <option value="keep_warm">Keep warm</option>
+            <option value="mute">Mute</option>
+            <option value="oscillation">Oscillation</option>
+            <option value="pause">Pause</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ST-Toggle">
+    <p>Manage device settings that can only be in one of two states.</p>
+</script>

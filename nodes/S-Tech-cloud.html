@@ -1,0 +1,96 @@
+<script type="text/javascript">
+    RED.nodes.registerType('S-Tech-cloud',{
+        category: 'config',
+        defaults: {
+			name: {value:"", required:true},
+			model: {value:"", required:true}
+		},
+		credentials:{
+			host: {value:""},
+			port: {value:""},			
+			login:{type:"text"},
+			password:{type:"text"},
+			token:{type:"password"}
+        },
+	label: function() {
+            return this.name || this.name;
+        }
+	});
+	
+    async function ConnectionToCloud(){
+		//console.log("Start ");
+		RED.notify("Request has been sent. Please, wait",{type:"compact"});
+		$('#login_button').prop('disabled', true);
+				
+		$.getJSON("/STechCloudnode/api", function(data) {
+			let url = 'https://s-tech-cloud.ru:8088/api/controller/create?controller_id='+data.serial;
+			$.ajax({
+				url: url,
+				type:'GET',
+				dataType: 'json',
+				success: function (data){
+				if (data.status == 200){
+					RED.notify("Connection data, received successfully", {type:"success"});
+					$('#node-config-input-host').val(data.host).trigger("input").trigger("change");
+					$('#node-config-input-port').val(data.port).trigger("input").trigger("change");
+					$('#node-config-input-login').val(data.user_id).trigger("input").trigger("change");
+					$('#node-config-input-password').val(data.password).trigger("change");
+					$('#node-config-input-token').val(data.jwt_token).trigger("change");
+					}
+				else{
+					RED.notify("Data not correct", {type:"error"});
+					}
+				},
+				error: function(error){
+					console.error(error.responseJSON);
+					RED.notify("Error : "+error.responseJSON.message, {type:"error"});
+					$('#login_button').prop('disabled', false);
+				}
+			});
+		});
+	
+    };
+</script>
+
+<script type="text/x-red" data-template-name="S-Tech-cloud">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+	<div class="form-row">
+        <label for="node-config-input-model"><i class="fa fa-tag"></i> Model</label>
+        <input type="text" id="node-config-input-model" placeholder="Model">
+    </div>
+    <div class="form-row"><b> </b></div>
+    <div class="form-row"><b>Credentials</b></div>
+	<div class="form-row">
+	    <label>Connection</label>
+	    <button id="login_button" onclick="ConnectionToCloud()" class="ui-button">Connection to the cloud</button>
+	</div>
+        <div class="form-row">
+    	    <label for="node-config-input-host"><i class="fa fa-globe"></i> Host</label>
+    	    <input type="text" id="node-config-input-host" disabled>
+	</div>
+	<div class="form-row">
+	    <label for="node-config-input-login"><i class="fa fa-user-o"></i> Login</label>
+    	    <input type="text" id="node-config-input-login" disabled>
+	</div>
+	<div class="form-row">
+    	    <label for="node-config-input-password"><i class="fa fa-user-secret"></i> Password</label>
+    	    <input type="text" id="node-config-input-password" disabled>
+	</div>
+	<div class="form-row" style="display: none;">
+    	    <label for="node-config-input-port"><i class="fa fa-globe"></i> Port</label>
+    	    <input type="text" id="node-config-input-port" placeholder="port" style="width:70%">
+	</div>
+	<div class="form-row" style="display: none;">
+    	    <label for="node-config-input-token">Token</label>
+    	    <input type="password" id="node-config-input-token" disabled>
+	</div>
+    </div>
+<!-- Добавьте больше конфигураций по мере необходимости -->
+</script>
+
+<script type="text/x-red" data-help-name="S-Tech-cloud">
+    <p>This is a configuration node forconnection to s-tech cloud .</p>
+</script>

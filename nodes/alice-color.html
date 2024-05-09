@@ -1,0 +1,136 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ST-Color',{
+        category: 'S_Tech_cloud',
+        defaults:{
+            device: {value:"", type:"device"},
+            name: {value:""},
+            color_support:{value:true},
+            scheme: {value:"rgb_normal"},
+            response:{value:true},
+            temperature_k: {value:false},
+            temperature_min: {value:2000, validate:function(v){
+                let value = parseInt(v);
+                return value>=2000;
+            }},
+            temperature_max: {value:9000, validate:function(v){
+                let value = parseInt(v);
+                return value<=9000;
+            }},
+            color_scene: {value:[]}
+        },
+        inputs:1,
+        outputs:1,
+        //outputLabels: ["color","temperature_k","color_scene"],
+        icon: "alice.png",
+        color:'#FFD09D',
+        label: function(){
+            return this.name + ":Color";
+        },
+        oneditprepare: function(){
+            if (this.response === undefined){
+                $( "#node-input-response").prop('checked', true);
+            };
+            if (this.color_support === undefined){
+                $( "#node-input-color_support").prop('checked', true);
+            };
+            if (this.temperature_min === undefined){
+                $('#node-input-temperature_min').val(2000);
+            };
+            if (this.temperature_max === undefined){
+                $('#node-input-temperature_max').val(9000);
+            };
+            $('#node-input-color_support').on('change',()=>{
+                if ($('#node-input-color_support').is(":checked")){
+                    $('#node-input-scheme').prop('disabled', false);
+                }else{
+                    $('#node-input-scheme').prop('disabled', true);
+                };
+            });
+            $('#node-input-temperature_k').on('change',()=>{
+                if ($('#node-input-temperature_k').is(":checked")){
+                    $('#node-input-temperature_min').prop('disabled', false);
+                    $('#node-input-temperature_max').prop('disabled', false);
+                }else{
+                    $('#node-input-temperature_min').prop('disabled', true);
+                    $('#node-input-temperature_max').prop('disabled', true);
+                };
+            });
+            updateAllScenes(this.color_scene);
+        },
+        oneditsave: function(){
+            deivcename = $('#node-input-device option:selected').text();
+            $('#node-input-name').val(deivcename);
+            this.color_scene = getCurrentScenes();
+        }
+    })
+    function updateAllScenes(scenes){
+        deleteAllScenes();
+        scenes.forEach((s,i)=>{
+            addScene2List(s,i);
+        });
+    };
+    function deleteAllScenes() {
+        $('#node-input-color_scene-container').empty();
+    };
+    function addScene2List(scene,index){
+        $('#node-input-color_scene-container').append('<li rel="'+scene+'" class="red-ui-editableList-item-sortable red-ui-editableList-item-removable"><div class="red-ui-editableList-item-content" style="overflow: hidden; white-space: nowrap;"><span>'+scene+'</span></div><a href="#" onclick="delScene('+index+')" class="red-ui-editableList-item-remove red-ui-button red-ui-button-small"><i class="fa fa-remove"></i></a></li>')        
+    };
+    function getCurrentScenes() {
+        let scenes = [];
+        $('#node-input-color_scene-container li').each(function(){ 
+            scenes.push($(this).attr('rel')); 
+        });
+        return scenes;
+    };
+    function addScene() {
+        let scene = $('#select-custom-scene').find(":selected").val();
+        let scenes = getCurrentScenes();
+        if (scenes.indexOf(scene)>-1){
+            return;
+        }else{
+            scenes.push(scene);
+            updateAllScenes(scenes);
+        }
+    };
+    function delScene(index) {
+        let scenes = getCurrentScenes();
+        scenes.splice(index, 1);
+        updateAllScenes(scenes);
+    };
+</script>
+
+<script type="text/x-red" data-template-name="ST-Color">
+    <input type="hidden" id="node-input-name">
+    <div class="form-row" style="border-bottom: 1px solid #ddd; padding-bottom: 12px;">
+        <label for="node-input-device">Device</label>
+        <input id="node-input-device">
+    </div>
+    <div class="form-row" style="border-bottom: 1px solid #ddd; padding-bottom: 12px;">
+        <label for="node-input-scheme">Scheme</label>
+        <select id="node-input-scheme" style="width: 70%;">
+            <option value="rgb_normal">RGB</option>
+            <!-- <option value="rgb">RGB (24bit)</option> -->
+            <option value="hsv">HSV</option>
+        </select>
+    </div>
+    <div class="form-row" style="border-bottom: 1px solid #ddd; padding-bottom: 12px;">
+        <label for="node-input-temperature_k"><span>Wite Temp</span></label>
+        <label for="node-input-temperature_k" style="width:70%">
+            <input type="checkbox" id="node-input-temperature_k" style="display:inline-block; width:22px; vertical-align:baseline;" autocomplete="off">
+            <span> white temperature support</span>
+        </label>
+        <div>
+            <label for="node-input-temperature_x"><span>Temp Range</span></label>
+            <span style="padding-left: 4px;"> Min</span>
+            <input id="node-input-temperature_min" type="number" style="width: 70px;">
+            <span> K</span>
+            <span style="padding-left: 10px;"> Max</span>
+            <input id="node-input-temperature_max" type="number" style="width: 70px;">
+            <span> K</span>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ST-Color">
+    <p>Change the color of their luminous elements to any one from the HSV model or from the RGB model;</p> 
+</script>
