@@ -1,0 +1,41 @@
+{
+  "name": "red-contrib-s-tech-alice",
+  "version": "0.1.0",
+  "description": "Connection to S-Tech cloud",
+  "node-red": {
+    "nodes": {
+      "s-tech-cloud": "./nodes/S-Tech-cloud.js",
+      "s-tech-device": "./nodes/alice-device.js",
+      "s-tech-onoff": "./nodes/alice-onoff.js",
+      "s-tech-range": "./nodes/alice-range.js",
+      "s-tech-color": "./nodes/alice-color.js",
+      "s-tech-toggle": "./nodes/alice-toggle.js",
+      "s-tech-mode": "./nodes/alice-mode.js",
+      "s-tech-sensor": "./nodes/alice-sensor.js",
+      "s-tech-event": "./nodes/alice-event.js",
+      "s-tech-test": "./nodes/test.js"
+    }
+  },
+  "keywords": [
+    "node-red",
+    "s-tech"
+  ],
+  "author": "Oleg Semenov",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^20.11.16",
+    "@types/node-red": "^1.3.4",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
