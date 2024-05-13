@@ -1,6 +1,6 @@
 {
   "name": "red-contrib-s-tech-alice",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Connection to S-Tech cloud",
   "node-red": {
     "nodes": {
@@ -12,8 +12,7 @@
       "s-tech-toggle": "./nodes/alice-toggle.js",
       "s-tech-mode": "./nodes/alice-mode.js",
       "s-tech-sensor": "./nodes/alice-sensor.js",
-      "s-tech-event": "./nodes/alice-event.js",
-      "s-tech-test": "./nodes/test.js"
+      "s-tech-event": "./nodes/alice-event.js"
     }
   },
   "keywords": [
