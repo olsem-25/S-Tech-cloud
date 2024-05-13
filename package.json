@@ -19,6 +19,10 @@
     "node-red",
     "s-tech"
   ],
+  "engines": {
+    "node-red": ">=3.0.0",
+    "node": ">=16.0.0"
+  },
   "author": "Oleg Semenov",
   "license": "MIT",
   "devDependencies": {
