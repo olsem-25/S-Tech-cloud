@@ -145,7 +145,6 @@ module.exports = function(RED) {
 			} catch (err) {
 			 controller_serial = "ERROR_SERIAL_NUMBER";
 			 node.error(err);
-			 controller_serial = "ERRORSER";
 			}
 			// controller_serial = "ABCDEFGH";
 			node.emit("controller_serial", controller_serial);
@@ -375,30 +374,6 @@ module.exports = function(RED) {
 				ws.on('error', function (error) {
 					node.emit('offline');
 					node.error('Ошибка WebSocket: ' + error.toString());
-					// const regex = /\d+/;
-					// const found = error.toString().match(regex);
-					// const numerror = found ? parseInt(found[0], 10) : null;
-					// if (numerror == 401){
-					//  	node.log("Токен не работает. Обновляю токен.");
-					// 	let url = "https://" + host + ":" + port + "/api/controller/create/token/update"; 
-					// 	axios.post(url, {
-					// 		user_id: login,
-					// 		password: password 
-					// 	})
-					// 	.then(function (response) {
-					// 		if (response.data.hasOwnProperty('jwtToken') === true){
-					// 			node.log("Новый токен получен.");
-					// 			token = response.data.jwtToken;
-					// 			var wrdata = []; 
-					// 			wrdata.push({id: id, token: token});
-					// 			wrdata = JSON.stringify(wrdata, null, 2); 
-					// 			fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){});	
-					// 		}	
-					// 	})
-					// 	.catch(function (error) {
-					// 		node.log(error);
-					// 	});
-					// }
 				});
 		};
 		
@@ -481,7 +456,6 @@ module.exports = function(RED) {
 			if (serld === true){
 				node.emit("controller_serial", controller_serial);
 				setTimeout ( function () { global.Flow_Cloud_loaded = true}, 0);
-				//setTimeout ( CheckConfig, 1000);	
 				clearInterval(intrvl);
 			}	
 		}, 50)

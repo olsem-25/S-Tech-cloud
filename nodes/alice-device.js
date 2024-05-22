@@ -73,7 +73,7 @@ module.exports = function(RED) {
 
 		cloud.on ("Get Info",(dev, model)=>{
 			if (dev === id ) {
-			    deviceconfig.device_info.model = model + "_" + config.modeltype; 	
+			    deviceconfig.device_info.model ="Controller model:" + model + ",  " + config.modeltype; 	
 			   	cloud.AddDevInfo (deviceconfig);
 		    }
 	    });
