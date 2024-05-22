@@ -103,9 +103,9 @@ module.exports = function(RED) {
 				return;
 			};
 			currentState.state.value = msg.payload;
-			node.send({
-				payload: currentState.state.value
-			});
+			// node.send({
+			// 	payload: currentState.state.value
+			// });
 			device.UpdateState(currentState);
 			node.status({fill:"green",shape:"dot", text:currentState.state.value.toString()});
 			if (done) {done();} 
