@@ -1,0 +1,34 @@
+{
+    "name": "@types/node-red__registry",
+    "version": "1.3.10",
+    "description": "TypeScript definitions for @node-red/registry",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node-red__registry",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Alex Kaul",
+            "githubUsername": "alexk111",
+            "url": "https://github.com/alexk111"
+        },
+        {
+            "name": "Tadeusz Wyrzykowski",
+            "githubUsername": "Shaquu",
+            "url": "https://github.com/Shaquu"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/node-red__registry"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/express": "*",
+        "@types/node-red__runtime": "*",
+        "@types/node-red__util": "*"
+    },
+    "typesPublisherContentHash": "a7055e9f8c0e060d4436aefe80de8f01663f2e005faa1f56800c4a709d12ecb4",
+    "typeScriptVersion": "4.7"
+}
