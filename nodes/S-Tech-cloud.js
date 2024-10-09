@@ -351,8 +351,7 @@ module.exports = function(RED) {
 						node.log("Токен не работает. Обновляю токен.");
 						let url = "https://" + host + ":" + port + "/api/controller/create/token/update"; 
 						axios.post(url, {
-							user_id: login,
-							password: password 
+							jwtToken: token
 						})
 						.then(function (response) {
 							if (response.data.hasOwnProperty('jwtToken') === true){
