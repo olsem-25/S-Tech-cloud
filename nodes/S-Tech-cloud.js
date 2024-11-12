@@ -392,6 +392,7 @@ module.exports = function(RED) {
 						.catch(function (error) {
 							node.log(error);
 						});
+					}
 				});
 		};
 		
