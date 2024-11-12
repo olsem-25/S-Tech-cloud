@@ -348,57 +348,49 @@ module.exports = function(RED) {
 					node.log('Disconnected from ' + url);
 					node.error('Код закрытия WebSocket: ' + code.toString());
 					if (code === 1008){
-						node.log("Токен не работает. Обновляю токен.");
-						let url = "https://" + host + ":" + port + "/api/controller/create/token/update"; 
-						axios.post(url, {
-							jwtToken: token
-						})
-						.then(function (response) {
-							if (response.data.hasOwnProperty('jwtToken') === true){
-								node.log("Новый токен получен.");
-								token = response.data.jwtToken;
-								var wrdata = []; 
-								wrdata.push({id: id, token: token});
-								wrdata = JSON.stringify(wrdata, null, 2); 
-								fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){});	
-							}	
-						})
-						.catch(function (error) {
-							node.log(error);
-						});
+						node.UpdateToken();
 					}
 					setTimeout(connect, 10000); // Переподключиться через 10 секунд после разрыва связи
 				});
 
+				ws.on('unexpected-response', (req, res) => {
+					if (res.statusCode === 401){
+						node.emit("offline");
+						node.UpdateToken();
+					}
+				});
+					
 				ws.on('error', function (error) {
 					node.emit('offline');
 					node.error('Ошибка WebSocket: ' + error.toString());
-					if (error.code === 401){
-						node.log("Токен не работает. Обновляю токен.");
-						let url = "https://" + host + ":" + port + "/api/controller/create/token/update"; 
-						axios.post(url, {
-							jwtToken: token
-						})
-						.then(function (response) {
-							if (response.data.hasOwnProperty('jwtToken') === true){
-								node.log("Новый токен получен.");
-								token = response.data.jwtToken;
-								var wrdata = []; 
-								wrdata.push({id: id, token: token});
-								wrdata = JSON.stringify(wrdata, null, 2); 
-								fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){});	
-							}	
-						})
-						.catch(function (error) {
-							node.log(error);
-						});
-					}
 				});
+					
 		};
 		
 		node.AddDevice = (id) => {
 			devices.push(id);	 	
 		};
+
+		node.UpdateToken = () =>{
+			node.log("Токен не работает. Обновляю токен.");
+			let url = "https://" + host + ":" + port + "/api/controller/create/token/update"; 
+			axios.post(url, {
+				jwtToken: token
+			})
+			.then(function (response) {
+				if (response.data.hasOwnProperty('jwtToken') === true){
+					node.log("Новый токен получен.");
+					token = response.data.jwtToken;
+					var wrdata = []; 
+					wrdata.push({id: id, token: token});
+					wrdata = JSON.stringify(wrdata, null, 2); 
+					fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){});	
+				}	
+			})
+			.catch(function (error) {
+				node.log(error);
+			});
+		}
 
 		node.UpdateStateDevice = (data) =>{
 			UpdateStateDevice.ts = Number(getTimestampInSeconds());
