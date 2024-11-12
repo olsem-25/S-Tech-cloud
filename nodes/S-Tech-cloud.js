@@ -356,7 +356,9 @@ module.exports = function(RED) {
 				ws.on('unexpected-response', (req, res) => {
 					if (res.statusCode === 401){
 						node.emit("offline");
+						node.log('WebSocket Error: Unexpected server response: 401');
 						node.UpdateToken();
+						ws.close();
 					}
 				});
 					
