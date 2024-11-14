@@ -110,8 +110,18 @@ module.exports = function(RED) {
 						if (typeof dt === 'object'){						
 							dt.forEach(datatok => {
 								if (datatok.id === id){
-									token = datatok.token;
-									read_token = true;
+									if ( token != null ){
+										if (token != datatok.token){
+											wrdata.push({id: id, token: token});
+											wrdata = JSON.stringify(wrdata, null, 2); 
+											fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){});
+											read_token = true;
+										}
+									}
+									else{
+										token = datatok.token;
+										read_token = true;
+									}
 								}
 							});
 						}
@@ -375,7 +385,7 @@ module.exports = function(RED) {
 
 		node.UpdateToken = () =>{
 			node.log("Токен не работает. Обновляю токен.");
-			let url = "https://" + host + ":" + port + "/api/controller/create/token/update"; 
+			let url = "https://" + host + ":" + port + "/api/controller/create/token/updateJWTToken"; 
 			axios.post(url, {
 				user_id: login,
 				password: password,
