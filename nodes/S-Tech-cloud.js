@@ -23,7 +23,9 @@ module.exports = function(RED) {
 		var configfile = "./s-tech-alice-conf.json";    // файл с конфигурацией
 
 		var tokenfile = "./s-tech-token.json";			// файл с токеном
-			
+		
+		var previoustoken = node.context().get('previoustoken') || '';
+
 		const host = node.credentials.host; // host сервиса из конфига ноды
 		const port = node.credentials.port; // port сервиса из конфига ноды	
 
@@ -94,15 +96,16 @@ module.exports = function(RED) {
 			if (typeof token === "undefined") {
 				return;
 			}
+			if (token != previoustoken)
+			{
+				node.context().set('previoustoken', token);
+				WriteTokenFile ();
+				return;
+			}
 			fs.readFile(tokenfile, {encoding: 'utf8'}, (err, data) => {
 				if (err) {
-					var wrdata = []; 
-					wrdata.push({id: id, token: token});
-					wrdata = JSON.stringify(wrdata, null, 2); 
-					fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){
-						read_token = true;
-						return;
-					});
+					WriteTokenFile ();
+					return;
 				}
 				else{
 					try{
@@ -110,35 +113,29 @@ module.exports = function(RED) {
 						if (typeof dt === 'object'){						
 							dt.forEach(datatok => {
 								if (datatok.id === id){
-									if ( token != null ){
-										if (token != datatok.token){
-											wrdata.push({id: id, token: token});
-											wrdata = JSON.stringify(wrdata, null, 2); 
-											fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){});
-											read_token = true;
-										}
-									}
-									else{
-										token = datatok.token;
-										read_token = true;
-									}
+									token = datatok.token;
+									read_token = true;
 								}
 							});
 						}
 						if (read_token === false) {
-							throw new SyntaxError("Токен из файла не прочитан.");
+							node.error("Токен из файла не прочитан.");
+							WriteTokenFile ();
 						}
 					}
 					catch{
 							node.log("С файлом токена что-то не так... Перезаписываю файл.")
-							var wrdata = []; 
-							wrdata.push({id: id, token: token});
-							wrdata = JSON.stringify(wrdata, null, 2); 
-							fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){});
-							read_token = true;
+							WriteTokenFile ();
 					}
 				}					
 			});	
+		}
+
+		function WriteTokenFile () {
+			var wrdata = []; 
+			wrdata.push({id: id, token: token});
+			wrdata = JSON.stringify(wrdata, null, 2); 
+			fs.writeFile(tokenfile, wrdata, { encoding: 'utf8', flag: 'w' }, function(){read_token =true});
 		}
 
 		// Функция получения текущего времени в секундах
