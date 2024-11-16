@@ -59,6 +59,13 @@
                     $('#node-input-temperature_max').prop('disabled', true);
                 };
             });
+            $('#node-input-retransmit_message').on('change',()=>{
+                if ($('#node-input-retransmit_message').is(":checked")){
+                    $('#retransmit_messqage').prop('enable', true);
+                }else{
+                    $('#retransmit_messqage').prop('disabled', true);
+                }
+            });
             updateAllScenes(this.color_scene);
         },
         oneditsave: function(){
@@ -134,8 +141,7 @@
         </div>
     </div>
     <div class="form-row" style="border-bottom: 1px solid #ddd; padding-bottom: 12px;">
-        <label for="node-input-retransmit_message"><span></span></label>
-        <label for="node-input-retransmit_message" style="width:70%">
+        <label for="node-input-retransmit_message" style="width:100%">
             <input type="checkbox" id="node-input-retransmit_message" style="display:inline-block; width:22px; vertical-align:baseline;" autocomplete="off">
             <span> Retransmit an incoming message</span>
         </label>
