@@ -6,7 +6,8 @@
             name: {value:""},
             color_support:{value:true},
             scheme: {value:"rgb_normal"},
-            response:{value:true},
+            //response:{value:true},
+            retransmit_message:{value:false},
             temperature_k: {value:false},
             temperature_min: {value:2000, validate:function(v){
                 let value = parseInt(v);
@@ -16,7 +17,6 @@
                 let value = parseInt(v);
                 return value<=9000;
             }},
-            retransmit_message:{value:false},
             color_scene: {value:[]}
         },
         inputs:1,
@@ -31,7 +31,7 @@
             if (this.response === undefined){
                 $( "#node-input-response").prop('checked', true);
             };
-            if (this.retransmit_messqage === undefined){
+            if (this.retransmit_message === undefined){
                 $( "#node-input-retransmit_message").prop('checked', true);
             };
             if (this.color_support === undefined){
@@ -134,9 +134,10 @@
         </div>
     </div>
     <div class="form-row">
-        <label for="node-input-retransmit_message"><i class="fa fa-refresh"></i> <span ></span></label>
-        <label for="node-input-retransmit_message" style="width:70%">
-        <input type="checkbox" id="node-input-retransmit_message" style="display:inline-block; width:22px; vertical-align:baseline;" autocomplete="off"><span>Retransmit an incoming message</span>
+        <label for="node-input-retransmit_message"</label>
+        <label for="node-input-retransmit_message" style="width:100%">
+        <input type="checkbox" id="node-input-retransmit_message" style="display:inline-block; width:22px; vertical-align:baseline;" autocomplete="off">
+        <span> Retransmit an incoming message</span>
         </label>
     </div>
 </script>
