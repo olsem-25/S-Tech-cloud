@@ -61,9 +61,9 @@
             });
             $('#node-input-retransmit_message').on('change',()=>{
                 if ($('#node-input-retransmit_message').is(":checked")){
-                    $('#retransmit_message').prop('enable', true);
+                    $('#node-input-retransmit_message').prop('enable', true);
                 }else{
-                    $('#retransmit_message').prop('disabled', true);
+                    $('#node-input-retransmit_message').prop('disabled', true);
                 }
             });
             updateAllScenes(this.color_scene);
