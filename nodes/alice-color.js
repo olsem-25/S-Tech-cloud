@@ -20,6 +20,7 @@ module.exports = function(RED) {
         //response = config.response;
         var initState = false;
         var reportable = true;
+        var retransmit_message = config.retransmit_message;
         //value;
     
         if (scheme == "rgb_normal"){
@@ -199,7 +200,7 @@ module.exports = function(RED) {
             };
 			currentState.state = state;
             if (reportable) device.UpdateState(currentState);
-            node.sendmsg (currentState.state);
+            if (retransmit_message === true) {node.sendmsg (currentState.state);}
 			node.status({fill:"green",shape:"dot", text:JSON.stringify(msg.payload)});
 			if (done) {done();} 
 		});

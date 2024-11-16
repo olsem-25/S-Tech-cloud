@@ -16,6 +16,7 @@
                 let value = parseInt(v);
                 return value<=9000;
             }},
+            retransmit_messqage:{value:false},
             color_scene: {value:[]}
         },
         inputs:1,
@@ -29,6 +30,9 @@
         oneditprepare: function(){
             if (this.response === undefined){
                 $( "#node-input-response").prop('checked', true);
+            };
+            if (this.retransmit_messqage === undefined){
+                $( "#node-input-retransmit_message").prop('checked', true);
             };
             if (this.color_support === undefined){
                 $( "#node-input-color_support").prop('checked', true);
@@ -128,6 +132,13 @@
             <input id="node-input-temperature_max" type="number" style="width: 70px;">
             <span> K</span>
         </div>
+    </div>
+    <div class="form-row" style="border-bottom: 1px solid #ddd; padding-bottom: 12px;">
+        <label for="node-input-retransmit_message"><span>Wite Temp</span></label>
+        <label for="node-input-temperature_k" style="width:70%">
+            <input type="checkbox" id="node-input-retransmit_message" style="display:inline-block; width:22px; vertical-align:baseline;" autocomplete="off">
+            <span> Retransmit an incoming message</span>
+        </label>
     </div>
 </script>
 
