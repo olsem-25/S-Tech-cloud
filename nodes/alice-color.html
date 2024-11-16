@@ -59,6 +59,13 @@
                     $('#node-input-temperature_max').prop('disabled', true);
                 };
             });
+            $('#node-input-retransmit_message').on('change',()=>{
+                if ($('#node-input-retransmit_message').is(":checked")){
+                    $('#node-input-retransmit_message').prop('enable', false);
+                }else{
+                    $('#node-input-retransmit_message').prop('disabled', true);
+                };
+            });
             updateAllScenes(this.color_scene);
         },
         oneditsave: function(){
