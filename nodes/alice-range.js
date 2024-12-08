@@ -10,7 +10,7 @@ module.exports = function(RED) {
         //const name = config.name;
         var ctype = 'devices.capabilities.range';
         var retrievable = config.retrievable;
-        var retransmit_message = config.retransmit_message;  // пресылать на выход входящее сообщение
+        var transmit_input_message = config.transmit_input_message;  // пресылать на выход входящее сообщение
         var instance = config.instance;
         var unit = config.unit;
         var random_access = true;
@@ -139,7 +139,7 @@ module.exports = function(RED) {
 			// node.send({
 			//  	payload: currentState.state.value
 			// });
-            if (retransmit_message === true) {node.sendmsg (currentState.state);}
+            if (transmit_input_message === true) {node.sendmsg (currentState.state);}
 			device.UpdateState(currentState);
 			node.status({fill:"green",shape:"dot", text:currentState.state.value.toString()});
 			if (done) {done();} 
