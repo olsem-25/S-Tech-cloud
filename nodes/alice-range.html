@@ -4,6 +4,7 @@
         defaults:{
             device: {value:"", type:"device"},
             name: {value:""},
+            retransmit_message:{value:false},
             instance: {value:undefined, validate: (v)=>{
                 if (v){
                     return true;
@@ -51,6 +52,7 @@
             var firstRun = true;
             function instanceChange(inst){
                 var unit, min, max, precision;
+                
                 // проверяем первый ли это запуск редактирования или он уже был настроен
                 if (firstRun && typeof inst !== "undefined"){
                     unit = $('#node-input-unit').find(":selected").val();
@@ -163,6 +165,9 @@
                 }
                 firstRun = false;
             };
+            if (this.retransmit_message === undefined){
+                    $( "#node-input-retransmit_message").prop('checked', true);
+                };
             $('#node-input-instance').on('change',()=>{
                 var val = $('#node-input-instance').find(":selected").val();
                 instanceChange(val);
@@ -213,6 +218,13 @@
     <div class="form-row">
         <label for="node-input-precision">Step</label>
         <input type="number" id="node-input-precision">
+    </div>
+    <div class="form-row" style="border-bottom: 1px solid #ddd; padding-bottom: 12px;">
+        <label for="node-input-retransmit_message"<span></span></label>
+        <label for="node-input-retransmit_message" style="width:100%">
+        <input type="checkbox" id="node-input-retransmit_message" style="display:inline-block; width:22px; vertical-align:baseline;" autocomplete="off">
+        <span> Retransmit an incoming message</span>
+        </label>
     </div>
 </script>
 
