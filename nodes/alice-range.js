@@ -10,6 +10,7 @@ module.exports = function(RED) {
         //const name = config.name;
         var ctype = 'devices.capabilities.range';
         var retrievable = config.retrievable;
+        var retransmit_message = config.retransmit_message;  // пресылать на выход входящее сообщение
         var instance = config.instance;
         var unit = config.unit;
         var random_access = true;
@@ -114,7 +115,7 @@ module.exports = function(RED) {
             if (currentState.state.value < min) currentState.state.value = min;
             if (currentState.state.value > max) currentState.state.value = max;
 			ResponceState.state.action_result.status = "DONE";
-			node.send({
+            node.send({
 				payload: Number(currentState.state.value)
 			});
 			node.status({fill:"green",shape:"dot", text:currentState.state.value.toString()}); 
@@ -138,6 +139,7 @@ module.exports = function(RED) {
 			// node.send({
 			//  	payload: currentState.state.value
 			// });
+            if (retransmit_message === true) {node.sendmsg (currentState.state);}
 			device.UpdateState(currentState);
 			node.status({fill:"green",shape:"dot", text:currentState.state.value.toString()});
 			if (done) {done();} 
