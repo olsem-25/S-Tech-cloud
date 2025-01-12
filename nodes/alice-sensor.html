@@ -129,7 +129,6 @@
                         .append('<option value="unit.pressure.pascal">Pascal (pascal)</option>')
                         .append('<option value="unit.pressure.bar">Bar (bar)</option>')
                         .append('<option value="unit.pressure.mmhg">Millimeters of mercury (mmhg)</option>')
-                        // .val('unit.pressure.bar')
                         .prop('disabled', false);
                     if (this.unit && this.unit.includes("unit.pressure")){
                         $('#node-input-unit').val(this.unit);
@@ -214,8 +213,6 @@
                         .find('option')
                         .remove()
                         .end()
-                        // .append('<option value="unit.gigacalorie">Gcal</option>')
-                        // .val('unit.gigacalorie')
                         .prop('disabled', 'disabled');
                     break;
                     default:
@@ -259,6 +256,7 @@
             <option value="electricity_meter">Electricity counter</option>
             <option value="gas_meter">Gas counter</option>
             <option value="water_meter">Water counter</option>
+            <option value="heat_meter">Water counter</option>
             <option value="meter">Universal counter</option>
         </select>
     </div>
