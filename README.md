@@ -3,10 +3,9 @@
 
 Этот сервис позволяет подключить уcтройства заведённые в *Node-RED* к сервисам Яндекса и управлять ими с помощью приложения "Умный дом" и голосового помощника Алиса. Подключение осуществляется через облако компании [**S-Tech**](https://s-tech-shop.ru).
 
-[**Node-red-contrib-s-tech-alice**](https://flows.nodered.org/node/node-red-contrib-s-tech-alice) распространяется только вместе с оборудованием **S-Tech**. При переносе работоспособность не сохраняется. Если Вы хотите пользоваться облачным сервисом S-Tech обратитесь в компанию [**S-Tech**](https://s-tech-shop.ru).
+[**Node-red-contrib-s-tech-alice**](https://flows.nodered.org/node/node-red-contrib-s-tech-alice) распространяется только вместе с оборудованием **S-Tech**. При переносе работоспособность не сохраняется. Если Вы хотите пользоваться облачным сервисом **S-Tech** обратитесь в компанию [**S-Tech**](https://s-tech-shop.ru).
 
-Сервис не содержит справочных материалов, но его интерфейс заимствован из проекта **node-red-contrib-alice**.
-Для получения справки обратитесь к проекту [node-red-contrib-alice](https://flows.nodered.org/node/node-red-contrib-alice).
+Сервис не содержит справочных материалов, но, так как его интерфейс заимствован из проекта **node-red-contrib-alice** справку можно получить обратитившись к проекту [node-red-contrib-alice](https://flows.nodered.org/node/node-red-contrib-alice).
 
 [![platform](https://img.shields.io/badge/platform-Node--RED-red?logo=nodered)](https://nodered.org)
 [![GitHub version](https://img.shields.io/github/package-json/v/olsem-25/S-Tech-cloud?logo=npm)](https://www.npmjs.com/package/node-red-contrib-s-tech-alice)
