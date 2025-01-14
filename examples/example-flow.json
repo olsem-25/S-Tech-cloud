@@ -1,0 +1,107 @@
+[
+    {
+        "id": "bf81f0f7d78829f5",
+        "type": "ST-On/Off",
+        "z": "3a436e19ec7c624a",
+        "name": "Лампа",
+        "device": "b696fd562f8909d6",
+        "x": 620,
+        "y": 220,
+        "wires": [
+            [
+                "deb4f46fbdae9c78"
+            ]
+        ]
+    },
+    {
+        "id": "deb4f46fbdae9c78",
+        "type": "debug",
+        "z": "3a436e19ec7c624a",
+        "name": "Вывод",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "80021a4fea52b957",
+        "type": "inject",
+        "z": "3a436e19ec7c624a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "bf81f0f7d78829f5"
+            ]
+        ]
+    },
+    {
+        "id": "847e9dc9436f0594",
+        "type": "inject",
+        "z": "3a436e19ec7c624a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "bf81f0f7d78829f5"
+            ]
+        ]
+    },
+    {
+        "id": "b696fd562f8909d6",
+        "type": "ST-device",
+        "name": "Лампа",
+        "description": "",
+        "room": "Комната",
+        "dtype": "devices.types.light",
+        "modeltype": "Lamp",
+        "cloud": "0959357e763a8342"
+    },
+    {
+        "id": "0959357e763a8342",
+        "type": "S-Tech-cloud",
+        "name": "Cloud",
+        "model": "1"
+    }
+]
