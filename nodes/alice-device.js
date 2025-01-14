@@ -176,5 +176,5 @@ module.exports = function(RED) {
 		}, 50)		
 		
    	}
-    RED.nodes.registerType("device", DeviceNode);
+    RED.nodes.registerType("ST-device", DeviceNode);
 }
