@@ -2,7 +2,7 @@
     RED.nodes.registerType('ST-Event',{
         category: 'S_Tech_cloud',
         defaults:{
-            device: {value:"", type:"device"},
+            device: {value:"", type:"ST-device"},
             name: {value:"Event"},
             stype: {value:'devices.properties.event'},
             instance: {value:undefined, validate: (v)=>{

@@ -2,7 +2,7 @@
     RED.nodes.registerType('ST-Sensor',{
         category: 'S_Tech_cloud',
         defaults:{
-            device: {value:"", type:"device"},
+            device: {value:"", type:"ST-device"},
             name: {value:"Sensor"},
             stype: {value:'devices.properties.float'},
             instance: {value:undefined, validate: (v)=>{

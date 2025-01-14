@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('device', {
+    RED.nodes.registerType('ST-device', {
         category: 'config',
         defaults: {
 	    name: {value:null, required: true},
@@ -106,7 +106,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="device">
+<script type="text/x-red" data-template-name="ST-device">
     <div class="form-row">
         <label for="node-config-input-cloud" class="l-width"> Cloud</span></label>
         <input type="text" id="node-config-input-cloud">
