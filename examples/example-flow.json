@@ -5,7 +5,7 @@
         "z": "3a436e19ec7c624a",
         "name": "Лампа",
         "device": "b696fd562f8909d6",
-        "x": 560,
+        "x": 580,
         "y": 220,
         "wires": [
             [
@@ -51,7 +51,7 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 350,
+        "x": 270,
         "y": 200,
         "wires": [
             [
@@ -80,7 +80,7 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 350,
+        "x": 270,
         "y": 240,
         "wires": [
             [
@@ -130,7 +130,7 @@
         "topic": "",
         "payload": "10",
         "payloadType": "num",
-        "x": 350,
+        "x": 270,
         "y": 340,
         "wires": [
             [
@@ -159,7 +159,7 @@
         "topic": "",
         "payload": "50",
         "payloadType": "num",
-        "x": 350,
+        "x": 270,
         "y": 380,
         "wires": [
             [
@@ -188,7 +188,7 @@
         "topic": "",
         "payload": "100",
         "payloadType": "num",
-        "x": 350,
+        "x": 270,
         "y": 420,
         "wires": [
             [
@@ -209,7 +209,7 @@
         "temperature_min": 2000,
         "temperature_max": 9000,
         "color_scene": [],
-        "x": 570,
+        "x": 590,
         "y": 540,
         "wires": [
             [
@@ -330,7 +330,7 @@
         "name": "ТВ",
         "instance": "backlight",
         "response": true,
-        "x": 570,
+        "x": 590,
         "y": 680,
         "wires": [
             [
@@ -359,7 +359,7 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 350,
+        "x": 270,
         "y": 660,
         "wires": [
             [
@@ -388,7 +388,7 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 350,
+        "x": 270,
         "y": 700,
         "wires": [
             [
@@ -451,7 +451,7 @@
         "topic": "",
         "payload": "auto",
         "payloadType": "str",
-        "x": 350,
+        "x": 270,
         "y": 780,
         "wires": [
             [
@@ -476,7 +476,7 @@
         "topic": "",
         "payload": "heat",
         "payloadType": "str",
-        "x": 350,
+        "x": 270,
         "y": 820,
         "wires": [
             [
@@ -501,7 +501,7 @@
         "topic": "",
         "payload": "turbo",
         "payloadType": "str",
-        "x": 350,
+        "x": 270,
         "y": 860,
         "wires": [
             [
@@ -525,6 +525,160 @@
         "x": 840,
         "y": 820,
         "wires": []
+    },
+    {
+        "id": "bb76eef4be2f2ef5",
+        "type": "ST-Sensor",
+        "z": "3a436e19ec7c624a",
+        "device": "f9d411795b1a56db",
+        "name": "Датчик температуры:Temperature",
+        "stype": "devices.properties.float",
+        "instance": "temperature",
+        "unit": "unit.temperature.celsius",
+        "x": 520,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "dd652b86b4b33475",
+        "type": "inject",
+        "z": "3a436e19ec7c624a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 270,
+        "y": 960,
+        "wires": [
+            [
+                "bb76eef4be2f2ef5"
+            ]
+        ]
+    },
+    {
+        "id": "90e43e5e95e4dab5",
+        "type": "inject",
+        "z": "3a436e19ec7c624a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "20",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1000,
+        "wires": [
+            [
+                "bb76eef4be2f2ef5"
+            ]
+        ]
+    },
+    {
+        "id": "7d61282c29ca3694",
+        "type": "inject",
+        "z": "3a436e19ec7c624a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "50",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1040,
+        "wires": [
+            [
+                "bb76eef4be2f2ef5"
+            ]
+        ]
+    },
+    {
+        "id": "6ad38f8632653e34",
+        "type": "ST-Event",
+        "z": "3a436e19ec7c624a",
+        "device": "f401d01ef5d3bd28",
+        "name": "Водная дверь:open",
+        "stype": "devices.properties.event",
+        "instance": "open",
+        "events": [
+            "opened",
+            "closed"
+        ],
+        "x": 560,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "2cfdd06af558c7d2",
+        "type": "inject",
+        "z": "3a436e19ec7c624a",
+        "name": "Opened",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Opened",
+        "payloadType": "str",
+        "x": 270,
+        "y": 1120,
+        "wires": [
+            [
+                "6ad38f8632653e34"
+            ]
+        ]
+    },
+    {
+        "id": "f490271fec29855b",
+        "type": "inject",
+        "z": "3a436e19ec7c624a",
+        "name": "Closed",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "closed",
+        "payloadType": "str",
+        "x": 270,
+        "y": 1160,
+        "wires": [
+            [
+                "6ad38f8632653e34"
+            ]
+        ]
     },
     {
         "id": "b696fd562f8909d6",
@@ -554,6 +708,26 @@
         "room": "Комната",
         "dtype": "devices.types.thermostat",
         "modeltype": "Thermostat",
+        "cloud": "0959357e763a8342"
+    },
+    {
+        "id": "f9d411795b1a56db",
+        "type": "ST-device",
+        "name": "Датчик температуры",
+        "description": "",
+        "room": "Комната",
+        "dtype": "devices.types.sensor.climate",
+        "modeltype": "Sensor climate",
+        "cloud": "0959357e763a8342"
+    },
+    {
+        "id": "f401d01ef5d3bd28",
+        "type": "ST-device",
+        "name": "Водная дверь",
+        "description": "",
+        "room": "Комната",
+        "dtype": "devices.types.sensor.open",
+        "modeltype": "Sensor open",
         "cloud": "0959357e763a8342"
     },
     {
