@@ -2,11 +2,11 @@
     {
         "id": "bf81f0f7d78829f5",
         "type": "ST-On/Off",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Лампа",
         "device": "b696fd562f8909d6",
-        "x": 580,
-        "y": 220,
+        "x": 660,
+        "y": 100,
         "wires": [
             [
                 "deb4f46fbdae9c78"
@@ -16,7 +16,7 @@
     {
         "id": "deb4f46fbdae9c78",
         "type": "debug",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Вывод 1",
         "active": true,
         "tosidebar": true,
@@ -26,14 +26,14 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 840,
-        "y": 380,
+        "x": 920,
+        "y": 260,
         "wires": []
     },
     {
         "id": "80021a4fea52b957",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -51,8 +51,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 270,
-        "y": 200,
+        "x": 350,
+        "y": 80,
         "wires": [
             [
                 "bf81f0f7d78829f5"
@@ -62,7 +62,7 @@
     {
         "id": "847e9dc9436f0594",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -80,8 +80,8 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 270,
-        "y": 240,
+        "x": 350,
+        "y": 120,
         "wires": [
             [
                 "bf81f0f7d78829f5"
@@ -91,7 +91,7 @@
     {
         "id": "18e847ae434953f2",
         "type": "ST-Range",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "device": "b696fd562f8909d6",
         "name": "Лампа",
         "transmit_input_message": false,
@@ -101,8 +101,8 @@
         "max": 100,
         "precision": "10",
         "retrievable": true,
-        "x": 570,
-        "y": 380,
+        "x": 650,
+        "y": 260,
         "wires": [
             [
                 "deb4f46fbdae9c78"
@@ -112,7 +112,7 @@
     {
         "id": "b08f063c11aefe9b",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -130,8 +130,8 @@
         "topic": "",
         "payload": "10",
         "payloadType": "num",
-        "x": 270,
-        "y": 340,
+        "x": 350,
+        "y": 220,
         "wires": [
             [
                 "18e847ae434953f2"
@@ -141,7 +141,7 @@
     {
         "id": "64b67d70a3b0ceae",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -159,8 +159,8 @@
         "topic": "",
         "payload": "50",
         "payloadType": "num",
-        "x": 270,
-        "y": 380,
+        "x": 350,
+        "y": 260,
         "wires": [
             [
                 "18e847ae434953f2"
@@ -170,7 +170,7 @@
     {
         "id": "17080f409faa2374",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -188,8 +188,8 @@
         "topic": "",
         "payload": "100",
         "payloadType": "num",
-        "x": 270,
-        "y": 420,
+        "x": 350,
+        "y": 300,
         "wires": [
             [
                 "18e847ae434953f2"
@@ -199,7 +199,7 @@
     {
         "id": "ab4d54391fc90e56",
         "type": "ST-Color",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "device": "b696fd562f8909d6",
         "name": "Лампа",
         "color_support": true,
@@ -209,8 +209,8 @@
         "temperature_min": 2000,
         "temperature_max": 9000,
         "color_scene": [],
-        "x": 590,
-        "y": 540,
+        "x": 670,
+        "y": 420,
         "wires": [
             [
                 "deb4f46fbdae9c78"
@@ -220,21 +220,21 @@
     {
         "id": "cf4ca3ed13a6953d",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "H = 150, S = 50, V = 70",
         "props": [
             {
-                "p": "h",
+                "p": "payload.h",
                 "v": "150",
                 "vt": "num"
             },
             {
-                "p": "s",
+                "p": "payload.s",
                 "v": "50",
                 "vt": "str"
             },
             {
-                "p": "v",
+                "p": "payload.v",
                 "v": "70",
                 "vt": "str"
             }
@@ -244,8 +244,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 320,
-        "y": 500,
+        "x": 400,
+        "y": 380,
         "wires": [
             [
                 "ab4d54391fc90e56"
@@ -255,21 +255,21 @@
     {
         "id": "760870c412e8d2b0",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "H = 50, S = 100, V = 100",
         "props": [
             {
-                "p": "h",
+                "p": "payload.h",
                 "v": "50",
                 "vt": "num"
             },
             {
-                "p": "s",
+                "p": "payload.s",
                 "v": "100",
                 "vt": "str"
             },
             {
-                "p": "v",
+                "p": "payload.v",
                 "v": "100",
                 "vt": "str"
             }
@@ -279,8 +279,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 330,
-        "y": 540,
+        "x": 410,
+        "y": 420,
         "wires": [
             [
                 "ab4d54391fc90e56"
@@ -290,21 +290,21 @@
     {
         "id": "03ff6fc20e88e950",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "H = 110, S = 30, V = 40",
         "props": [
             {
-                "p": "h",
+                "p": "payload.h",
                 "v": "110",
                 "vt": "num"
             },
             {
-                "p": "s",
+                "p": "payload.s",
                 "v": "30",
                 "vt": "str"
             },
             {
-                "p": "v",
+                "p": "payload.v",
                 "v": "40",
                 "vt": "str"
             }
@@ -314,8 +314,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 320,
-        "y": 580,
+        "x": 400,
+        "y": 460,
         "wires": [
             [
                 "ab4d54391fc90e56"
@@ -325,13 +325,13 @@
     {
         "id": "fcf7991b64d85efd",
         "type": "ST-Toggle",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "device": "dfed8c28872e0d46",
         "name": "ТВ",
         "instance": "backlight",
         "response": true,
-        "x": 590,
-        "y": 680,
+        "x": 670,
+        "y": 560,
         "wires": [
             [
                 "0abda46fb296ef43"
@@ -341,7 +341,7 @@
     {
         "id": "26b8dfe70f95c5e8",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -359,8 +359,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 270,
-        "y": 660,
+        "x": 350,
+        "y": 540,
         "wires": [
             [
                 "fcf7991b64d85efd"
@@ -370,7 +370,7 @@
     {
         "id": "af3ca0cf41c16478",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -388,8 +388,8 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 270,
-        "y": 700,
+        "x": 350,
+        "y": 580,
         "wires": [
             [
                 "fcf7991b64d85efd"
@@ -399,7 +399,7 @@
     {
         "id": "0abda46fb296ef43",
         "type": "debug",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Вывод 2",
         "active": true,
         "tosidebar": true,
@@ -409,14 +409,14 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 840,
-        "y": 680,
+        "x": 920,
+        "y": 560,
         "wires": []
     },
     {
         "id": "ce0f334bc2ba796b",
         "type": "ST-Mode",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "device": "b2a05ac7a07c6fd7",
         "name": "Термостат",
         "instance": "thermostat",
@@ -426,8 +426,8 @@
             "turbo"
         ],
         "response": true,
-        "x": 560,
-        "y": 820,
+        "x": 640,
+        "y": 700,
         "wires": [
             [
                 "7a84c0e6b951f502"
@@ -437,7 +437,7 @@
     {
         "id": "60569abf8b8315c3",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Auto",
         "props": [
             {
@@ -451,8 +451,8 @@
         "topic": "",
         "payload": "auto",
         "payloadType": "str",
-        "x": 270,
-        "y": 780,
+        "x": 350,
+        "y": 660,
         "wires": [
             [
                 "ce0f334bc2ba796b"
@@ -462,7 +462,7 @@
     {
         "id": "ec814b697a452a97",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Heat",
         "props": [
             {
@@ -476,8 +476,8 @@
         "topic": "",
         "payload": "heat",
         "payloadType": "str",
-        "x": 270,
-        "y": 820,
+        "x": 350,
+        "y": 700,
         "wires": [
             [
                 "ce0f334bc2ba796b"
@@ -487,7 +487,7 @@
     {
         "id": "767909ddb64dc3fe",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Turbo",
         "props": [
             {
@@ -501,8 +501,8 @@
         "topic": "",
         "payload": "turbo",
         "payloadType": "str",
-        "x": 270,
-        "y": 860,
+        "x": 350,
+        "y": 740,
         "wires": [
             [
                 "ce0f334bc2ba796b"
@@ -512,7 +512,7 @@
     {
         "id": "7a84c0e6b951f502",
         "type": "debug",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Вывод 3",
         "active": true,
         "tosidebar": true,
@@ -522,27 +522,27 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 840,
-        "y": 820,
+        "x": 920,
+        "y": 700,
         "wires": []
     },
     {
         "id": "bb76eef4be2f2ef5",
         "type": "ST-Sensor",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "device": "f9d411795b1a56db",
         "name": "Датчик температуры:Temperature",
         "stype": "devices.properties.float",
         "instance": "temperature",
         "unit": "unit.temperature.celsius",
-        "x": 520,
-        "y": 1000,
+        "x": 600,
+        "y": 880,
         "wires": []
     },
     {
         "id": "dd652b86b4b33475",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -556,8 +556,8 @@
         "topic": "",
         "payload": "10",
         "payloadType": "num",
-        "x": 270,
-        "y": 960,
+        "x": 350,
+        "y": 840,
         "wires": [
             [
                 "bb76eef4be2f2ef5"
@@ -567,7 +567,7 @@
     {
         "id": "90e43e5e95e4dab5",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -581,8 +581,8 @@
         "topic": "",
         "payload": "20",
         "payloadType": "num",
-        "x": 270,
-        "y": 1000,
+        "x": 350,
+        "y": 880,
         "wires": [
             [
                 "bb76eef4be2f2ef5"
@@ -592,7 +592,7 @@
     {
         "id": "7d61282c29ca3694",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "",
         "props": [
             {
@@ -606,8 +606,8 @@
         "topic": "",
         "payload": "50",
         "payloadType": "num",
-        "x": 270,
-        "y": 1040,
+        "x": 350,
+        "y": 920,
         "wires": [
             [
                 "bb76eef4be2f2ef5"
@@ -617,7 +617,7 @@
     {
         "id": "6ad38f8632653e34",
         "type": "ST-Event",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "device": "f401d01ef5d3bd28",
         "name": "Водная дверь:open",
         "stype": "devices.properties.event",
@@ -626,14 +626,14 @@
             "opened",
             "closed"
         ],
-        "x": 560,
-        "y": 1140,
+        "x": 640,
+        "y": 1020,
         "wires": []
     },
     {
         "id": "2cfdd06af558c7d2",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Opened",
         "props": [
             {
@@ -645,10 +645,10 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "Opened",
+        "payload": "opened",
         "payloadType": "str",
-        "x": 270,
-        "y": 1120,
+        "x": 350,
+        "y": 1000,
         "wires": [
             [
                 "6ad38f8632653e34"
@@ -658,7 +658,7 @@
     {
         "id": "f490271fec29855b",
         "type": "inject",
-        "z": "3a436e19ec7c624a",
+        "z": "2d54600e340a6970",
         "name": "Closed",
         "props": [
             {
@@ -672,8 +672,8 @@
         "topic": "",
         "payload": "closed",
         "payloadType": "str",
-        "x": 270,
-        "y": 1160,
+        "x": 350,
+        "y": 1040,
         "wires": [
             [
                 "6ad38f8632653e34"
@@ -686,8 +686,8 @@
         "name": "Лампа",
         "description": "",
         "room": "Комната",
-        "dtype": "devices.types.light",
-        "modeltype": "Lamp",
+        "dtype": "devices.types.light.ceiling",
+        "modeltype": "Light Ceiling",
         "cloud": "0959357e763a8342"
     },
     {
