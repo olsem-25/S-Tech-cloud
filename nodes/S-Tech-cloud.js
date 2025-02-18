@@ -24,10 +24,6 @@ module.exports = function(RED) {
 
 		var tokenfile = "./s-tech-token.json";			// файл с токеном
 		
-		//var previoustoken = node.context().get('previoustoken') || '';
-
-		//var lasttoken = node.context().get('lasttoken') || '';
-
 		const host = node.credentials.host; // host сервиса из конфига ноды
 		const port = node.credentials.port; // port сервиса из конфига ноды	
 
