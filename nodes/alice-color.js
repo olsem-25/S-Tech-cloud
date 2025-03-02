@@ -205,7 +205,7 @@ module.exports = function(RED) {
 			if (done) {done();} 
 		});
 
-        device.on("Set Action",(capab, devid)=>{     // Обработка команды от облака ( пока принимаются только RGB и HSV )
+        device.on("Set Action",(capab, devid)=>{     // Обработка команды от облака 
             if (capab.type != ctype){
 				return;
 			}
@@ -279,6 +279,27 @@ module.exports = function(RED) {
                     currentState.state.instance = capab.state.instance;
                     currentState.state.value = value;
                     node.sendmsg(currentState.state);
+                    node.status({fill:"green",shape:"dot", text:JSON.stringify(value)});
+                    ResponceState.state.action_result.status = "DONE";
+                    device.ResponceState ( ResponceState, devid );
+                    break;
+                case 'temperature_k':
+                    if ( val == null || typeof val != 'number'){    // Проверяем входную переменную ( object ли она )
+                        ResponceState.state.action_result.status = "ERROR";
+                        ResponceState.state.action_result.error_code = "INVALID_VALUE";
+                        device.ResponceState ( ResponceState, devid );
+                        return;
+                    }
+                    if ((Number(val) > 9000)||(Number(val) < 2000)) { // Проверяем входную переменную на вхождение в допустимый диапазон  
+                        ResponceState.state.action_result.status = "ERROR";
+                        ResponceState.state.action_result.error_code = "INVALID_VALUE";
+                        device.ResponceState ( ResponceState, devid );
+                        return;
+                    }
+                    ResponceState.state.instance = capab.state.instance;
+                    currentState.state = capab.state;
+                    node.sendmsg(capab.state);
+                    value = urrentState.state.value;
                     node.status({fill:"green",shape:"dot", text:JSON.stringify(value)});
                     ResponceState.state.action_result.status = "DONE";
                     device.ResponceState ( ResponceState, devid );
