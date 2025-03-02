@@ -298,8 +298,8 @@ module.exports = function(RED) {
                     }
                     ResponceState.state.instance = capab.state.instance;
                     currentState.state = capab.state;
-                    node.sendmsg(capab.state);
                     value = currentState.state.value;
+                    node.send ({ payload: value });
                     node.status({fill:"green",shape:"dot", text:JSON.stringify(value)});
                     ResponceState.state.action_result.status = "DONE";
                     device.ResponceState ( ResponceState, devid );
