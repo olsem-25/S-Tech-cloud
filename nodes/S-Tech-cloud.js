@@ -18,7 +18,7 @@ module.exports = function(RED) {
 		var WebSocket = require('ws'); 
 		const fs  = require('fs');
 		
-		var ws;
+		let ws;
 
 		var configfile = "./s-tech-alice-conf.json";    // файл с конфигурацией
 
@@ -51,6 +51,8 @@ module.exports = function(RED) {
 		var devfornotifi = new Array();
 
 		var test_msg_send = false;
+		
+		var normalclose = false;
 
 		var DevicesInfo= {
 			request_id: "",
@@ -276,6 +278,8 @@ module.exports = function(RED) {
 		
 		function connect() {
 			
+			normalclose = false;
+	
 			node.log("Start connect to cloud..."); 
 
 			let url = "https://" + host + ":" + port + "/api/controller/websocket"; 
@@ -283,92 +287,111 @@ module.exports = function(RED) {
 			
 			ws = new WebSocket(url, {
 				headers: {
-				'Authorization': token
-			}	
+					'Authorization': token
+				}	
 			});
 
-				ws.on('open', function open() {
-					node.emit("online");
-					node.log('Connected to ' + url);
-				});
+			
+			ws.on('open', function open() {
+				node.emit("online");
+				node.log('Connected to ' + url);
+			});
 
-				ws.on('message', function incoming(data) {
-					if ( test_msg_send === true && data.toString() === "200 OK" ){
-						node.log ("Response to test message received");
-						test_msg_send = false;
-						return;
-					}
-					try{
-						let inmsg = JSON.parse(data);
-						switch (inmsg.Function){
-							case "Get Devices Info":
-								node.log("Request Devices Info. Requeest ID: " + inmsg.XRequestId);
-								RequestDevInfo (inmsg.XRequestId, model)
-								.then ( res => {
-									console.log (JSON.stringify(res, null, 2))
-									ws.send (JSON.stringify(res));
-									node.log("Send to cloud Devices Info. Requeest ID: " + res.request_id);
-								})
-								.catch (() => {
-									ws.send ({Error: "External error"});
-								})					 	
-							break;
-							case "Get Devices State":
-								node.log("Request Devices State. Requeest ID: " + inmsg.XRequestId);							
-								GetStateDevices (inmsg.XRequestId, inmsg.DeviceList)
-								.then ( res => {
-									ws.send (JSON.stringify(res));
-									node.log("Send to cloud Devices State. Requeest ID: " + res.request_id);
-								})
-								.catch (() => {
-									ws.send ({Error: "External error"});
-								})
-							break;
-							case "Set Devices State":
-								node.log("Devices Status change request. Requeest ID: " + inmsg.XRequestId);
-								SetStateDevices (inmsg.XRequestId, inmsg.DeviceList.payload)
-								.then ( res => {	
-									ws.send (JSON.stringify(res));
-									node.log("Send to cloud confirmation new action devices. Requeest ID: " + res.request_id);
-								})
-								.catch (() => {
-									ws.send ({Error: "External error"});
-								})
-							break;
-							default:
-								ws.send ({Error :"Function not found"});	
-						}					
-					}
-					catch{}
-				});
+			ws.on('message', function incoming(data) {
+				if ( test_msg_send === true && data.toString() === "200 OK" ){
+					node.log ("Response to test message received");
+					test_msg_send = false;
+					return;
+				}
+				try{
+					let inmsg = JSON.parse(data);
+					switch (inmsg.Function){
+						case "Get Devices Info":
+							node.log("Request Devices Info. Requeest ID: " + inmsg.XRequestId);
+							RequestDevInfo (inmsg.XRequestId, model)
+							.then ( res => {
+								console.log (JSON.stringify(res, null, 2))
+								ws.send (JSON.stringify(res));
+								node.log("Send to cloud Devices Info. Requeest ID: " + res.request_id);
+							})
+							.catch (() => {
+								ws.send ({Error: "External error"});
+							})					 	
+						break;
+						case "Get Devices State":
+							node.log("Request Devices State. Requeest ID: " + inmsg.XRequestId);							
+							GetStateDevices (inmsg.XRequestId, inmsg.DeviceList)
+							.then ( res => {
+								ws.send (JSON.stringify(res));
+								node.log("Send to cloud Devices State. Requeest ID: " + res.request_id);
+							})
+							.catch (() => {
+								ws.send ({Error: "External error"});
+							})
+						break;
+						case "Set Devices State":
+							node.log("Devices Status change request. Requeest ID: " + inmsg.XRequestId);
+							SetStateDevices (inmsg.XRequestId, inmsg.DeviceList.payload)
+							.then ( res => {	
+								ws.send (JSON.stringify(res));
+								node.log("Send to cloud confirmation new action devices. Requeest ID: " + res.request_id);
+							})
+							.catch (() => {
+								ws.send ({Error: "External error"});
+							})
+						break;
+						default:
+							ws.send ({Error :"Function not found"});	
+					}					
+				}
+				catch{}
+			});
 
-				ws.on('close', function close(code, reason) {
+			ws.on('close', function close(code, reason) {
+				if (normalclose == false){
 					node.emit("offline");
 					node.log('Disconnected from ' + url);
-					node.error('Код закрытия WebSocket: ' + code.toString());
-					if (code === 1000) return;	
+					node.log('Причина закрытия WebSocket: ' + reason);
+					node.error('Код закрытия WebSocket: ' + code.toString());					
 					if (code === 1008){
 						node.UpdateToken();
 					}
-					setTimeout(connect, 10000); // Переподключиться через 10 секунд после разрыва связи
-				});
+					setTimeout(connect, 5000); // Переподключиться через 5 секунд после разрыва связи
+				} 
+			});
 
-				ws.on('unexpected-response', (req, res) => {
-					if (res.statusCode === 401){
-						node.emit("offline");
-						node.log('WebSocket Error: Unexpected server response: 401');
-						node.UpdateToken();
-						ws.close();
-					}
-				});
+			ws.on('unexpected-response', (req, res) => {
+				if (res.statusCode === 401){
+					node.emit("offline");
+					node.log('WebSocket Error: Unexpected server response: 401');
+					node.UpdateToken();
+					ws.close();
+				}
+			});
 					
-				ws.on('error', function (error) {
-					node.emit('offline');
-					node.error('Ошибка WebSocket: ' + error.toString());
-				});
+			ws.on('error', function (error) {
+				node.emit('offline');
+				node.error('Ошибка WebSocket: ' + error.toString());
+			});
 					
 		};
-		
+
+		node.on('close', async (done) => {
+			try {
+				if (ws && ws.readyState === WebSocket.OPEN) {
+					await new Promise((resolve, reject) => {
+						normalclose = true;
+						ws.close(1000, "Normal closure");
+						resolve();
+					});
+					node.log('Normal websocket closing');
+				}
+			} catch (err) {
+				node.error('Error closing connection: ' + err.message);
+			} finally {
+				done(); // Вызываем done() в finally, чтобы гарантировать его выполнение
+			}
+		});
 		node.AddDevice = (id) => {
 			devices.push(id);	 	
 		};
@@ -498,29 +521,6 @@ module.exports = function(RED) {
 			catch{}
 		}, 120000);
 		
-
-		node.on('close', async (done) => {
-			try {
-				if (ws && ws.readyState === WebSocket.OPEN) {
-					await new Promise((resolve, reject) => {
-						ws.close();
-						ws.on('close', () => {
-							node.log('WebSocket closed');
-						});
-						resolve();
-						ws.on('error', (err) => {
-							reject(err);
-						});
-					});
-					node.log('Normal websocket closing');
-				}
-			} catch (err) {
-				node.error('Error closing connection: ' + err.message);
-			} finally {
-				done(); // Вызываем done() в finally, чтобы гарантировать его выполнение
-			}
-		});
-
     }
     RED.nodes.registerType("S-Tech-cloud", STechCloudConfigNode,{
 		credentials:{
