@@ -500,7 +500,15 @@ module.exports = function(RED) {
 
         node.on('close', async (done) => {
             try {
-                ws.close(1000, 'CloseNormalClosure');
+				await new Promise((resolve, reject) => {
+					ws.close(1000, 'CloseNormalClosure', (err) => {
+						if (err) {
+							reject(err);
+						} else {
+							resolve();
+						}
+					});
+				});
 				node.log ('Normal websocket closing')
                 done();
             } catch (err) {
