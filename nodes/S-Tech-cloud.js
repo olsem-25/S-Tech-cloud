@@ -346,6 +346,7 @@ module.exports = function(RED) {
 					node.emit("offline");
 					node.log('Disconnected from ' + url);
 					node.error('Код закрытия WebSocket: ' + code.toString());
+					if (code === 1000) return;	
 					if (code === 1008){
 						node.UpdateToken();
 					}
@@ -502,7 +503,7 @@ module.exports = function(RED) {
 			try {
 				if (ws && ws.readyState === WebSocket.OPEN) {
 					await new Promise((resolve, reject) => {
-						ws.close(1000, 'CloseNormalClosure');
+						ws.close();
 						ws.on('close', () => {
 							resolve();
 						});
