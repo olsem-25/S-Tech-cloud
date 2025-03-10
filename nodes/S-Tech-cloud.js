@@ -504,12 +504,14 @@ module.exports = function(RED) {
 				if (ws && ws.readyState === WebSocket.OPEN) {
 					await new Promise((resolve, reject) => {
 						ws.close();
-						// ws.on('close', () => {
-						// 	resolve();
-						// });
-						// ws.on('error', (err) => {
-						// 	reject(err);
-						// });
+						ws.on('close', () => {
+							node.log('WebSocket closed');
+						});
+							resolve();
+						});
+						ws.on('error', (err) => {
+							reject(err);
+						});
 					});
 					node.log('Normal websocket closing');
 				}
