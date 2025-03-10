@@ -496,11 +496,18 @@ module.exports = function(RED) {
 			}
 			catch{}
 		}, 120000);
+		
 
-		node.on('close', () => {
-			ws.close(1000, 'CloseNormalClosure');
-			node.log ('Normal websocket closing')
-		});
+        node.on('close', async (done) => {
+            try {
+                ws.close(1000, 'CloseNormalClosure');
+				node.log ('Normal websocket closing')
+                done();
+            } catch (err) {
+				node.error('Error closing connection: ' + err.message);
+                done();
+            }
+        });
 
     }
     RED.nodes.registerType("S-Tech-cloud", STechCloudConfigNode,{
