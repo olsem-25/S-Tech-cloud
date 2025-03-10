@@ -498,24 +498,26 @@ module.exports = function(RED) {
 		}, 120000);
 		
 
-        node.on('close', async (done) => {
-            try {
-				await new Promise((resolve, reject) => {
-					ws.close(1000, 'CloseNormalClosure');
-					ws.on('close', () => {
-						resolve();
+		node.on('close', async (done) => {
+			try {
+				if (ws && ws.readyState === WebSocket.OPEN) {
+					await new Promise((resolve, reject) => {
+						ws.close(1000, 'CloseNormalClosure');
+						ws.on('close', () => {
+							resolve();
+						});
+						ws.on('error', (err) => {
+							reject(err);
+						});
 					});
-					ws.on('error', (err) => {
-						reject(err);
-					});
-				});
-				node.log ('Normal websocket closing')
-                done();
-            } catch (err) {
-				node.error('Error closing connection: ' + err.message);
-                done();
-            }
-        });
+					node.log('Normal websocket closing');
+				}
+			done();
+			} catch (err) {
+					node.error('Error closing connection: ' + err.message);
+			done();
+			}
+		});
 
     }
     RED.nodes.registerType("S-Tech-cloud", STechCloudConfigNode,{
