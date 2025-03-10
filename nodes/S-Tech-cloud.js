@@ -501,12 +501,12 @@ module.exports = function(RED) {
         node.on('close', async (done) => {
             try {
 				await new Promise((resolve, reject) => {
-					ws.close(1000, 'CloseNormalClosure', (err) => {
-						if (err) {
-							reject(err);
-						} else {
-							resolve();
-						}
+					ws.close(1000, 'CloseNormalClosure');
+					ws.on('close', () => {
+						resolve();
+					});
+					ws.on('error', (err) => {
+						reject(err);
 					});
 				});
 				node.log ('Normal websocket closing')
