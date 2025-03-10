@@ -507,8 +507,7 @@ module.exports = function(RED) {
 						ws.on('close', () => {
 							node.log('WebSocket closed');
 						});
-							resolve();
-						});
+						resolve();
 						ws.on('error', (err) => {
 							reject(err);
 						});
