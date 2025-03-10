@@ -512,10 +512,10 @@ module.exports = function(RED) {
 					});
 					node.log('Normal websocket closing');
 				}
-			done();
 			} catch (err) {
-					node.error('Error closing connection: ' + err.message);
-			done();
+				node.error('Error closing connection: ' + err.message);
+			} finally {
+				done(); // Вызываем done() в finally, чтобы гарантировать его выполнение
 			}
 		});
 
