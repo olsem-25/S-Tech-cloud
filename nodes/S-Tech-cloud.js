@@ -278,24 +278,13 @@ module.exports = function(RED) {
 		
 		function connect() {
 			
-			normalclose = false;
-	
+			normalclose = false;	
 			node.log("Start connect to cloud..."); 
-
 			let url = "https://" + host + ":" + port + "/api/controller/websocket"; 
-			//let url = "https://s-tech-cloud.ru:8088/api/controller/websocket"; 
-			
-			ws = new WebSocket(url, {
-				headers: {
-					'Authorization': token
-				}	
-			});
 
-			
-			ws.on('open', function open() {
-				node.emit("online");
-				node.log('Connected to ' + url);
-			});
+			ws = new WebSocket(url, { headers: { 'Authorization': token }});
+
+			ws.on('open', function open() { node.emit("online"); node.log('Connected to ' + url);});
 
 			ws.on('message', function incoming(data) {
 				if ( test_msg_send === true && data.toString() === "200 OK" ){
@@ -351,7 +340,6 @@ module.exports = function(RED) {
 				if (normalclose == false){
 					node.emit("offline");
 					node.log('Disconnected from ' + url);
-					node.log('Причина закрытия WebSocket: ' + reason);
 					node.error('Код закрытия WebSocket: ' + code.toString());					
 					if (code === 1008){
 						node.UpdateToken();
