@@ -415,8 +415,10 @@ module.exports = function(RED) {
 			let outmsg = {};
 			outmsg.command = "Callback State";
 			outmsg.payload = UpdateStateDevice;
-			ws.send (JSON.stringify(outmsg));
-			node.log("Cloud notification of state changes.");
+			if (ws && ws.readyState === WebSocket.OPEN) {
+				ws.send (JSON.stringify(outmsg));
+				node.log("Cloud notification of state changes.");
+			}
 		}
 
 		node.UpdateDevices = () =>{
@@ -424,8 +426,10 @@ module.exports = function(RED) {
 			let outmsg = {};
 			outmsg.command = "Callback Discovery";
 			outmsg.payload = UpdateDevices;
-			ws.send (JSON.stringify(outmsg));
-			node.log("Cloud notification about changing device settings.");
+			if (ws && ws.readyState === WebSocket.OPEN) {
+				ws.send (JSON.stringify(outmsg));
+				node.log("Cloud notification about changing device settings.");
+			}
 		}
 	
 		async function writeJsonFile(filePath, obj) {
@@ -502,8 +506,10 @@ module.exports = function(RED) {
 					test_msg_send = true;
 					let outmsg = {};
 					outmsg.command = "Test Connect";
-					ws.send(JSON.stringify(outmsg));
-					node.log("Test connect message send");
+					if (ws && ws.readyState === WebSocket.OPEN) {
+						ws.send(JSON.stringify(outmsg));
+						node.log("Test connect message send");
+					}
 				}
 			}
 			catch{}

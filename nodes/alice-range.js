@@ -136,10 +136,11 @@ module.exports = function(RED) {
 			};
 
 			currentState.state.value = msg.payload;
-			// node.send({
-			//  	payload: currentState.state.value
-			// });
-            if (transmit_input_message === true) {node.sendmsg (currentState.state);}
+            if (transmit_input_message === true) {
+                if (currentState && currentState.state !== undefined) {
+                node.sendmsg(currentState.state);
+                }   
+            }
 			device.UpdateState(currentState);
 			node.status({fill:"green",shape:"dot", text:currentState.state.value.toString()});
 			if (done) {done();} 
